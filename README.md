@@ -13,7 +13,6 @@ Container Registry: Docker Hub
 ## 🔧 Prerequisites
 
 * Kubernetes cluster set up via **Kops**
-* `kubectl` configured to point to your cluster
 * Docker installed and logged in to Docker Hub
 * If you want Ingress Instead of load-balencer, make sure Ingress Controller installed (e.g., [NGINX Ingress]
 

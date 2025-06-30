@@ -1,4 +1,4 @@
-# MERN Stack App on Kubernetes (Kops + Ingress)
+# MERN Stack App on Kubernetes (Kops)
 
 This project is a full-stack MERN (MongoDB, Express, React, Node.js) application deployed on a Kubernetes cluster using Kops, with Docker images hosted on Docker Hub and exposed via a LoadBalancer service (no Ingress).
 

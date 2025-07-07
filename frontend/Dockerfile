@@ -1,20 +1,20 @@
-# Use official Node.js 20 image as the base
-FROM node:20
+# -------- Build Stage --------
+FROM node:20 AS builder
 
-# Set working directory inside the container to /app
 WORKDIR /app
-
-# Copy only package.json and package-lock.json iitially (for caching npm install layer)
 COPY package*.json ./
-
-# Install dependencies listed in package.json
 RUN npm install
-
-# Copy the rest of the application source code into the container
 COPY . .
+RUN npm run build
 
-# Expose port 3000 to the host (React dev server runs on 3000)
-EXPOSE 3000
+# -------- Serve Stage --------
+FROM node:20-alpine
 
-# Command to run the app when the container starts
-CMD ["npm", "start"]
+# Install a simple static file server
+RUN npm install -g serve
+
+WORKDIR /app
+COPY --from=builder /app/build ./build
+
+EXPOSE 80
+CMD ["serve", "-s", "build", "-l", "80"]

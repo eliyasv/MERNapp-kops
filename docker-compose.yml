@@ -1,0 +1,46 @@
+services:
+ 
+  # React Frontend Service
+  frontend:
+    build: ./frontend       # Build the image from the Dockerfile in ./frontend
+    ports:
+      - "3000:3000"         # Map host port 3000 to container port 3000 
+      - backend             # Wait for backend to start before launching frontend
+    networks:
+      - mernapp             # Connect to shared 'mernapp' Docker network
+
+  
+  # Express Backend Service
+ 
+  backend:
+    build: ./backend        # Build the image from the Dockerfile in ./backend
+    ports:
+      - "5000:5000"         # Map host port 5000 to container port 5000 (Express API)
+    depends_on:
+      - db                  # Wait for MongoDB to be up before starting backend
+    networks:
+      - mernapp             # Connect to shared 'mernapp' Docker network
+
+
+  # MongoDB Service
+  
+  db:
+    image: mongo            # Use official MongoDB image from Docker Hub
+    ports:
+      - "27017:27017"       # Expose MongoDB port for development access
+    volumes:
+      - mongo-data:/data/db # Persist MongoDB data using a named volume
+    networks:
+      - mernapp             # Connect to shared 'mernapp' Docker network
+
+
+#  Volume for MongoDB Data
+
+volumes:
+  mongo-data:               # Named volume to store database files
+
+# Custom Docker Network
+
+networks:
+  mernapp:
+    driver: bridge          # Use bridge networking

@@ -56,7 +56,7 @@ mernapp/
 │   └── kustomization.yaml
 └── README.md
 ```
-(Also you can setup a docker compose file to test locally)
+* (Additionaly you can setup a docker compose file to test locally)
 ---
 
 ## 🚀 CI/CD Pipeline (GitHub Actions)
@@ -83,7 +83,7 @@ Once deployed, expose the frontend using a LoadBalancer. Run:
 kubectl get svc frontend
 
 ```
-Wait for the EXTERNAL-IP to appear. Access the app in your browser via: http://<EXTERNAL-IP>
+* Access the app by the public dns of the loadbalencer shown
 ---
 
 ## ✅ Cleanup

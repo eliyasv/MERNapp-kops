@@ -1,15 +1,16 @@
 # MERN Stack App on Kubernetes (Kops)
 
-This project is a full-stack MERN (MongoDB, Express, React, Node.js) application deployed on a Kubernetes cluster using Kops, with Docker images hosted on Docker Hub and exposed via a LoadBalancer service (no Ingress).
+This project is a full-stack MERN (MongoDB, Express, React, Node.js) application deployed on a Kubernetes cluster using Kops, with Docker images hosted on Docker Hub and exposed via a LoadBalancer service.
 
 ## 🧱 Stack
 
-*Frontend: React
-*Backend: Express + Node.js 
-*Database: MongoDB
-*Platform: Kubernetes (via Kops)
-*Container Registry: Docker Hub
-*CI/CD: GitHub Actions
+
+* Frontend: React
+* Backend: Express + Node.js 
+* Database: MongoDB
+* Platform: Kubernetes (via Kops)
+* Container Registry: Docker Hub
+* CI/CD: GitHub Actions
 
 ---
 
@@ -63,13 +64,13 @@ mernapp/
 
 Workflow:
 
-*Builds frontend and backend Docker images
+* Builds frontend and backend Docker images
 
-*Pushes them to Docker Hub
+* Pushes them to Docker Hub
 
-*Sets up kubeconfig using KUBE_CONFIG_DATA
+* Sets up kubeconfig using KUBE_CONFIG_DATA
 
-*Deploys to the Kubernetes cluster using kubectl apply -k k8s/
+* Deploys to the Kubernetes cluster using kubectl apply -k k8s/
 
 
 ---

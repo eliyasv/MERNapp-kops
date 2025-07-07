@@ -2,13 +2,14 @@
 
 This project is a full-stack MERN (MongoDB, Express, React, Node.js) application deployed on a Kubernetes cluster using Kops, with Docker images hosted on Docker Hub and exposed via a LoadBalancer service (no Ingress).
 
-🧱 Stack
-Frontend: React
-Backend: Express + Node.js 
-Database: MongoDB
-Platform: Kubernetes (via Kops)
-Container Registry: Docker Hub
-CI/CD: GitHub Actions
+## 🧱 Stack
+
+*Frontend: React
+*Backend: Express + Node.js 
+*Database: MongoDB
+*Platform: Kubernetes (via Kops)
+*Container Registry: Docker Hub
+*CI/CD: GitHub Actions
 
 ---
 

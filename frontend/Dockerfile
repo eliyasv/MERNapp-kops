@@ -17,4 +17,4 @@ WORKDIR /app
 COPY --from=builder /app/build ./build
 
 EXPOSE 80
-CMD ["serve", "-s", "build", "-l", "80"]
+CMD ["serve", "-s", "build", "-l", "0.0.0.0:80"]

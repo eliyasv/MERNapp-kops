@@ -3,25 +3,45 @@
 This project is a full-stack MERN (MongoDB, Express, React, Node.js) application deployed on a Kubernetes cluster using Kops, with Docker images hosted on Docker Hub and exposed via a LoadBalancer service (no Ingress).
 
 🧱 Stack
-Frontend: React (port 3000)
-Backend: Express + Node.js (port 5000)
-Database: MongoDB (port 27017)
+Frontend: React
+Backend: Express + Node.js 
+Database: MongoDB
 Platform: Kubernetes (via Kops)
 Container Registry: Docker Hub
+CI/CD: GitHub Actions
+
 ---
 
 ## 🔧 Prerequisites
 
-* Kubernetes cluster set up via **Kops**
-* Docker installed and logged in to Docker Hub
+* AWS CLI + credentials configured
+* Kops installed and cluster created
+* Docker hub account for stoing images
+* GitHub secrets configured in the github repo
 * If you want Ingress Instead of load-balencer, make sure Ingress Controller installed (e.g., [NGINX Ingress]
 
 ---
+
+
+## 🔐 Required GitHub Secrets
+Set these secrets in your GitHub repository settings:
+
+| Name                 | Description                                                         |
+| -------------------- | ------------------------------------------------------------------- |
+| `DOCKERHUB_USERNAME` | Docker Hub username                                                 |
+| `DOCKERHUB_TOKEN`    | Docker Hub access token
+| `KUBE_CONFIG_DATA`   | Base64-encoded `~/.kube/config` for GitHub Actions                  |
+
+
+---
+
 
 ## 📁 Project Structure
 
 ```
 mernapp/
+├── .github/workflows/  
+│   └── deploy.yaml
 ├── backend/
 │   ├── Dockerfile
 │   └── server.js
@@ -38,59 +58,21 @@ mernapp/
 (Also you can setup a docker compose file to test locally)
 ---
 
-## 🐳 Build & Push Docker Images
+## 🚀 CI/CD Pipeline (GitHub Actions)
 
-Replace `<your-dockerhub-username>` with your actual Docker Hub username.
+Workflow:
 
-```bash
-# Build
-cd backend
-docker build -t <your-dockerhub-username>/mernapp-backend:latest .
-cd ../frontend
-docker build -t <your-dockerhub-username>/mernapp-frontend:latest .
+*Builds frontend and backend Docker images
 
-# Push
-docker push <your-dockerhub-username>/mernapp-backend:latest
-docker push <your-dockerhub-username>/mernapp-frontend:latest
-```
+*Pushes them to Docker Hub
+
+*Sets up kubeconfig using KUBE_CONFIG_DATA
+
+*Deploys to the Kubernetes cluster using kubectl apply -k k8s/
+
 
 ---
 
-## 🧾 Kubernetes Manifests
-
-### `mongo.yaml`
-
-Defines a MongoDB deployment and ClusterIP service.
-
-### `backend.yaml`
-
-Defines the Node.js/Express backend. Connects to MongoDB via `mongodb://db:27017/mern`.
-
-### `frontend.yaml`
-
-Defines the React frontend. Uses a ClusterIP service.
-
-### `kustomization.yaml`
-
-Combines all manifests:
-
-```yaml
-resources:
-  - mongo.yaml
-  - backend.yaml
-  - frontend.yaml
-```
-
----
-
-## 🚀 Deploy to Kubernetes
-
-```bash
-cd k8s/
-kubectl apply -k .
-```
-
----
 
 ## 🌐 Accessing the App
 
@@ -98,6 +80,7 @@ Once deployed, expose the frontend using a LoadBalancer. Run:
 
 ```bash
 kubectl get svc frontend
+
 ```
 Wait for the EXTERNAL-IP to appear. Access the app in your browser via: http://<EXTERNAL-IP>
 ---
